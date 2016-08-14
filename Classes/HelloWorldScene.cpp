@@ -10,9 +10,17 @@ Scene* HelloWorld::createScene()
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
+	layer->setName("HelloWorld");
+	
 
     // add layer as a child to scene
-    scene->addChild(layer);
+	scene->addChild(layer, 2, layer->getName());
+
+	//add Warning layer
+	auto warningLayer = LayerColor::create(Color4B(255, 0, 0, 60));
+	warningLayer->setOpacity(0);
+	warningLayer->setName("warningLayer");
+	scene->addChild(warningLayer, 7, warningLayer->getName());
 
     // return the scene
     return scene;
@@ -28,8 +36,9 @@ bool HelloWorld::init()
         return false;
     }
     
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+	Size winSize = Director::getInstance()->getWinSize();
 
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -54,7 +63,8 @@ bool HelloWorld::init()
 
     // add a label shows "Hello World"
     // create and initialize a label
-    
+
+    /*
     auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
     
     // position the label on the center of the screen
@@ -72,7 +82,35 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-    
+	*/
+
+
+
+	//sprite sheet test animation
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("spaceShip.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("spaceShip.plist");
+
+	auto Sprite1 = Sprite::createWithSpriteFrameName("0.png");
+	spritebatch->addChild(Sprite1);
+	addChild(spritebatch);
+	spritebatch->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+
+	Vector<SpriteFrame*> animFrames(10);
+
+	char str[100] = { 0 };
+	for (int i = 0; i <= 9; i++)
+	{
+		sprintf(str, "%d.png", i);
+		SpriteFrame* frame = cache->getSpriteFrameByName(str);
+		animFrames.insert(i, frame);
+	}
+
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
+	Sprite1->runAction(RepeatForever::create(Animate::create(animation)));
+
+
+
     return true;
 }
 
@@ -92,4 +130,9 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //_eventDispatcher->dispatchEvent(&customEndEvent);
     
     
+}
+
+cocos2d::Vector<cocos2d::SpriteFrame*> HelloWorld::getAnimation(const char * format, int count)
+{
+	return cocos2d::Vector<cocos2d::SpriteFrame*>();
 }
