@@ -1,0 +1,7 @@
+Cocos2d-x v3.x - Helper
+
+CC_SYNTHESIZE (type, variable name, ○○○ part of the get ○○○);
+CC_SYNTHESIZE(bool, flag, Flag);
+
+CC_SYNTHESIZE_READONLY(bool, flag, Flag);
+CC_SYNTHESIZE_RETAIN(CCObject *, object, Object);
