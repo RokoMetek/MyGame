@@ -1,5 +1,8 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include "MainMenuScene.h"
+#include "GameConfig.h"
+#include "Definitions.h"
 
 USING_NS_CC;
 
@@ -37,9 +40,22 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
+
+	int height, width;
+	height = 800;
+	width = height*(640.0 / 960.0);
+
+	/*
+	int height, width;
+	height = 640;
+	width = 960;
+	*/
+	
+	
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("MyGame", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        //glview = GLViewImpl::createWithRect("MyGame", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+		glview = GLViewImpl::createWithRect("MyGame", cocos2d::Rect(0, 0, width, height));
 #else
         glview = GLViewImpl::create("MyGame");
 #endif
@@ -53,7 +69,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    //glview->setDesignResolutionSize(width, height, ResolutionPolicy::NO_BORDER);
+	glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
+
+	/*
     auto frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
@@ -70,14 +89,23 @@ bool AppDelegate::applicationDidFinishLaunching() {
     {        
         director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     }
+	*/
 
     register_all_packages();
 
+
+	//PRELOAD RESOURCES
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(ASTEROID_SPRITESHEET, ASTEROID_PNG);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BULLETS_SPRITESHEET, BULLETS_PNG);
+
+
+
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+	auto scene = MainMenuScene::createScene();
 
     // run
     director->runWithScene(scene);
+	glEnable(GL_CULL_FACE);
 
     return true;
 }

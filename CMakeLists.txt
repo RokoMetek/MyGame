@@ -125,12 +125,23 @@ endif( WIN32 )
 set(GAME_SRC
   Classes/AppDelegate.cpp
   Classes/HelloWorldScene.cpp
+  Classes/MainMenuScene.cpp
+  Classes/GameLayer.cpp
+  Classes/GameOverScene.cpp
+  Classes/PauseScene.cpp
+  Classes/Player.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
   Classes/AppDelegate.h
   Classes/HelloWorldScene.h
+  Classes/MainMenuScene.h
+  Classes/GameConfig.h
+  Classes/GameLayer.h
+  Classes/GameOverScene.h
+  Classes/PauseScene.h
+  Classes/Player.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
