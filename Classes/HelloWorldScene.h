@@ -2,7 +2,8 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "Sprite3DEffect.h"
+#include "ui\CocosGUI.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -12,6 +13,8 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+
+	void initStats();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -21,16 +24,27 @@ public:
 
 	void update(float dt);
 
-	static inline float rand_range(float min_num, float max_num) {
-		return min_num + (CCRANDOM_0_1()*(max_num - min_num));
-	}
+
 
 
 protected:
 	HelloWorld();
 	~HelloWorld();
 
-protected:
+private:
+	CC_SYNTHESIZE(int, _score, Score);
+	CC_SYNTHESIZE(Label*, _labelScore, LabelScore);
+	CC_SYNTHESIZE(ui::LoadingBar*, _healthBar, HealthBar);
+	CC_SYNTHESIZE(GameLayer*, sb, Sb);
+	CC_SYNTHESIZE(float, _scaleDificulty, ScaleDificulty);
+	CC_SYNTHESIZE(float, _scaleSpeedBG, ScaleSpeedBG)
+
+
+	void incrementScore(float dt);
+	void setHealthBarPosition(Vec2 vec);
+	bool checkScaleDificulty();
+	bool checkScaleSpeedBG();
+
 	Sprite* _spr;
 
 	ParallaxNode *backgroundNode;
@@ -41,9 +55,10 @@ protected:
 	Sprite *bg_galaxy;
 	Sprite *bg_anomaly1;
 	PhysicsWorld *sceneWorld;
+	Physics3DWorld *sceneWorld3D;
 
 	float xScroll = 0.0f;
-	float xSpeed = 60;
+	float xSpeed = 300;
 	
 
 };

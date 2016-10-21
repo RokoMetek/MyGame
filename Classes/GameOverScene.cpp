@@ -6,11 +6,16 @@
 
 USING_NS_CC;
 
-cocos2d::Scene * GameOverScene::createScene()
+int _scorePoints;
+
+cocos2d::Scene * GameOverScene::createScene(int score)
 {
 
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
+
+	//SetScore
+	_scorePoints = score;
 
 	// 'layer' is an autorelease object
 	auto layer = GameOverScene::create();
@@ -50,15 +55,26 @@ bool GameOverScene::init()
 	auto backToMenu_pressed = Sprite::createWithSpriteFrameName("backtomenu_button.png");
 
 	backToMenu_item = MenuItemSprite::create(backToMenu_normal, backToMenu_pressed, CC_CALLBACK_1(GameOverScene::backToMenu, this));
-	backToMenu_item->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + 50);
+	backToMenu_item->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + 0);
 	backToMenu_item->setRotation(-90.0f);
 
 	//Menu
 	auto menu = Menu::create(playagain_item, backToMenu_item, NULL);
 	menu->setPosition(origin);
-	menu->setScale(2.0);
+	menu->setScale(0.8);
 	this->addChild(menu, 1);
 
+	//Score result
+	auto scoreString = __String::createWithFormat("Your Score: %i", _scorePoints)->getCString();
+	auto _labelScore = Label::createWithTTF(scoreString, "fonts/PLANK___.ttf", 32);
+	_labelScore->setPosition(Point(visibleSize.width / 2, visibleSize.height - _labelScore->getContentSize().height));
+	this->addChild(_labelScore, 1);
+
+	//Background
+	auto spriteBG = Sprite::create("background3.png");
+	spriteBG->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	spriteBG->setScale(visibleSize.width / spriteBG->getContentSize().width, visibleSize.height / spriteBG->getContentSize().height);
+	this->addChild(spriteBG, -1);
 	return true;
 }
 

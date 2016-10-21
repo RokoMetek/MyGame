@@ -43,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	int height, width;
 	height = 800;
-	width = height*(640.0 / 960.0);
+	width = (height*(640.0 / 960.0));
 
 	/*
 	int height, width;
@@ -71,6 +71,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // Set the design resolution
     //glview->setDesignResolutionSize(width, height, ResolutionPolicy::NO_BORDER);
 	glview->setDesignResolutionSize(640, 960, ResolutionPolicy::SHOW_ALL);
+	//glview->setDesignResolutionSize(width, height, ResolutionPolicy::NO_BORDER);
+
 
 	/*
     auto frameSize = glview->getFrameSize();
@@ -97,8 +99,27 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//PRELOAD RESOURCES
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(ASTEROID_SPRITESHEET, ASTEROID_PNG);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(BULLETS_SPRITESHEET, BULLETS_PNG);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("explosions.plist", "explosions.png");
 
 
+	
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BACKGROUND_SOUND_INTRO);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BACKGROUND_SOUND_GAME);
+	
+	experimental::AudioEngine::preload(SOUND_EFFECT_LASERSHOOT);
+	experimental::AudioEngine::preload(SOUND_EFFECT_EXPLOSION1);
+	experimental::AudioEngine::preload(SOUND_EFFECT_EXPLOSION2);
+	experimental::AudioEngine::preload(SOUND_EFFECT_EXPLOSION3);
+	experimental::AudioEngine::preload(SOUND_EFFECT_BULLETIMPACT);
+
+	
+	
+
+	/*
+	auto Audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	Audio->playBackgroundMusic("Audio/Intro.mp3", true);
+	*/
 
     // create a scene. it's an autorelease object
 	auto scene = MainMenuScene::createScene();

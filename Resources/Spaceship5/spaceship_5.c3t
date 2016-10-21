@@ -3494,7 +3494,7 @@
 			"textures": [
 				{
 					"id": "Ship_5-Diffuse_tga", 
-					"filename": "Ship_5-Diffuse.tga", 
+					"filename": "Ship_5-Diffuse.png", 
 					"type": "DIFFUSE", 
 					"wrapModeU": "REPEAT", 
 					"wrapModeV": "REPEAT"

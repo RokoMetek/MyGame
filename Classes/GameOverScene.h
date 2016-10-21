@@ -12,7 +12,7 @@ class GameOverScene : public cocos2d::Layer
 {
 public:
 
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int score);
 
 	virtual bool init();
 
@@ -32,6 +32,7 @@ private:
 
 	MenuItemSprite *backToMenu_item;
 	MenuItemSprite *playagain_item;
+	
 
 };
 

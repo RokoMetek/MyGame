@@ -2,52 +2,56 @@
 #ifndef __BULLETS_H__
 #define __BULLETS_H__
 #include "cocos2d.h"
-#include "GameEntity.h"
+//#include "GameEntity.h"
 #include "PPlayer.h"
 
 
 USING_NS_CC;
 using namespace std;
 
-class Bullets : public GameEntity
+class Bullets : public Node
 {
 public:
 	Bullets();
 	~Bullets();
 
-	/*
-	CC_SYNTHESIZE(Node*, _Model, Model);
-	CC_SYNTHESIZE(float, _radius, Radius);
-
-	CC_SYNTHESIZE(int, _type, Type);
-	CC_SYNTHESIZE(float, _width, Width);
-	CC_SYNTHESIZE(float, _height, Height);
-	CC_SYNTHESIZE(Point*, _pos, Pos);
-	CC_SYNTHESIZE(float, _posX, PosX);
-	CC_SYNTHESIZE(float, _posY, PosY);
-
-	CC_SYNTHESIZE(Sprite*, _spr, Spr);
-	CC_SYNTHESIZE(Sprite3D*, _spr3D, Spr3D);
-	*/
 
 	CC_SYNTHESIZE(float, _damge, Damge);
+	CC_SYNTHESIZE(Sprite*, _bulletSprite, BullettSprite);
+	CC_SYNTHESIZE(Vector<Sprite*>, _bulletSprites, BulletSprites);
+	CC_SYNTHESIZE(ParticleSystemQuad*, _bulletParticle, BulletParticle);
+
+
+	void resetBullet();
+	float bulletTimeToPoint(Vec2 endPos, Vec2 startPos, float speed);
+	void bulletImpact(Layer *layer);
+	void update(float dt);
 
 };
 
 class PlayerBullet : public Bullets
 {
 public:
+
 	PlayerBullet();
-	PlayerBullet(Layer *layer, PPlayer *player);
+	void startBullet(Layer *layer, PPlayer *player, int index);
+	void update(float dt);
 	~PlayerBullet();
 
-	void resetPlayerBullet();
+
+
 
 
 };
 
-class EnemyBullet : public Bullets 
+class EnemyBullet : public Bullets
 {
+
+public:
+	EnemyBullet();
+	void startBullet(Layer *layer, Vec2 startPos, Vec2 directionVector, int index);
+	void update(float dt);
+	~EnemyBullet();
 
 };
 

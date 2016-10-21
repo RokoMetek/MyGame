@@ -2,11 +2,16 @@
 
 StarShipStats::StarShipStats()
 {
+
+	_alive = false;
+	_hp = 100;
+	_score = 10;
 }
 
 
 StarShipStats::~StarShipStats()
 {
+
 }
 
 
@@ -19,6 +24,9 @@ void StarShipStats::showExplosion(Layer * layer)
 	layer->addChild(explosion);
 }
 
-void StarShipStats::showCollision()
+void StarShipStats::hurt(float damge)
 {
+
+	
 }
+

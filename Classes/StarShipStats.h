@@ -15,10 +15,8 @@ class StarShipStats : public GameEntity
 public:
 	StarShipStats();
 	~StarShipStats();
-	
 	void showExplosion(Layer *layer);
-	void showCollision();
-
+	void hurt(float damge);
 
 
 

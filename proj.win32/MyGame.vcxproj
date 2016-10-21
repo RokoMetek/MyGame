@@ -146,6 +146,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Bullets.cpp" />
+    <ClCompile Include="..\Classes\Enemies.cpp" />
     <ClCompile Include="..\Classes\GameEntity.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameOverScene.cpp" />
@@ -153,9 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />
     <ClCompile Include="..\Classes\Meteor.cpp" />
     <ClCompile Include="..\Classes\PauseScene.cpp" />
-    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PPlayer.cpp" />
-    <ClCompile Include="..\Classes\Sprite3DEffect.cpp" />
     <ClCompile Include="..\Classes\StarShipStats.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -163,6 +162,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Bullets.h" />
     <ClInclude Include="..\Classes\Definitions.h" />
+    <ClInclude Include="..\Classes\Enemies.h" />
     <ClInclude Include="..\Classes\GameConfig.h" />
     <ClInclude Include="..\Classes\GameEntity.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
@@ -171,9 +171,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\MainMenuScene.h" />
     <ClInclude Include="..\Classes\Meteor.h" />
     <ClInclude Include="..\Classes\PauseScene.h" />
-    <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PPlayer.h" />
-    <ClInclude Include="..\Classes\Sprite3DEffect.h" />
     <ClInclude Include="..\Classes\StarShipStats.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

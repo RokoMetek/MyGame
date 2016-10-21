@@ -88,7 +88,7 @@ void PauseScene::backToMenu(cocos2d::Ref * sender)
 
 void PauseScene::backToMenu_callback()
 {
-	log("test backToMenu_callback");
+	//log("test backToMenu_callback");
 
 	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->popScene();

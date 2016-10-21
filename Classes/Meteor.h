@@ -21,6 +21,15 @@ public:
 	void runMeteor(Layer *layer, int index, float speed);
 	void resetMeteor();
 	void displayExplosion(Layer *layer);
+	void update(float dt);
+
+
+	
+	Sprite *sprite;
+	bool live;
+	int damge;
+	int score;
+	int type;
 
 protected:
 

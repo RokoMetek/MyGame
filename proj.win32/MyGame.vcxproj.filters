@@ -30,13 +30,7 @@
     <ClCompile Include="..\Classes\GameLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameOverScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Sprite3DEffect.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameEntity.cpp">
@@ -52,6 +46,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Bullets.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Enemies.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,13 +74,7 @@
     <ClInclude Include="..\Classes\GameLayer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameOverScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Sprite3DEffect.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameEntity.h">
@@ -102,6 +93,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bullets.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Enemies.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

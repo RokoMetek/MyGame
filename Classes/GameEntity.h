@@ -4,7 +4,7 @@
 #define __GAME_ENTITY_H__
 
 #include "cocos2d.h"
-#include "Sprite3DEffect.h"
+
 
 USING_NS_CC;
 
@@ -14,7 +14,7 @@ using namespace std;
 class GameEntity : public Node
 {
 public:
-	CREATE_FUNC(GameEntity);
+	//CREATE_FUNC(GameEntity);
 	
 	//Node* getModel();
 
@@ -22,22 +22,23 @@ public:
 	~GameEntity();
 
 
-protected:
-	CC_SYNTHESIZE(Node*, _Model, Model);
+public:
+	//CC_SYNTHESIZE(Node*, _Model, Model);
 	CC_SYNTHESIZE(float, _radius, Radius);
 
-	CC_SYNTHESIZE(int, _type, Type);
-	CC_SYNTHESIZE(float, _width, Width);
-	CC_SYNTHESIZE(float, _height, Height);
-	CC_SYNTHESIZE(Vec2, _pos, Pos);
-	CC_SYNTHESIZE(float, _posX, PosX);
-	CC_SYNTHESIZE(float, _posY, PosY);
+	//CC_SYNTHESIZE(int, _type, Type);
+	//CC_SYNTHESIZE(float, _width, Width);
+	//CC_SYNTHESIZE(float, _height, Height);
+	//CC_SYNTHESIZE(Vec2, _pos, Pos);
+	//CC_SYNTHESIZE(float, _posX, PosX);
+	//CC_SYNTHESIZE(float, _posY, PosY);
 
 
 	CC_SYNTHESIZE(Sprite*, _spr, Spr);
 	CC_SYNTHESIZE(Sprite3D*, _spr3D, Spr3D);
 	CC_SYNTHESIZE(ParticleSystemQuad*, _par, Par);
 	CC_SYNTHESIZE(PhysicsBody*, _body, Body);
+
 
 
 	/*

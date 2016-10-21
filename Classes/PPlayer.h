@@ -14,7 +14,7 @@ using namespace std;
 class PPlayer : public StarShipStats
 {
 public:
-	CREATE_FUNC(PPlayer);
+	//CREATE_FUNC(PPlayer);
 
 	PPlayer();
 	PPlayer(Layer* layer);
@@ -22,7 +22,8 @@ public:
 
 	CC_SYNTHESIZE(float, targetAngle, TargetAngle);
 	CC_SYNTHESIZE(Vec2, targetPos, TargetPos);
-	
+
+
 
 	//Touch listener
 	virtual bool onTouchBegan(Touch *touch, Event *event);
@@ -37,8 +38,12 @@ public:
 	static const float maxRoll;
 	static const float rollReturnThreshold;
 
-	virtual void targetRollUpdate(float dt);
+	void targetRollUpdate(float dt);
+	void initTail();
 
+
+	virtual void hurt(float damge);
+	
 	//virtual Vec2 getPos() { return _spr3D->getPosition(); }
 
 };

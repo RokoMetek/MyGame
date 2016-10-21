@@ -11,17 +11,11 @@ Node * GameEntity::getModel()
 
 GameEntity::GameEntity()
 {
-	_Model = nullptr;
+	_spr = nullptr;
+	_spr3D = nullptr;
+	_body = nullptr;
 	_radius = 0;
-	_type = 0;
-	_width = 0;
-	_height = 0;
 
-
-	
-	//_pos = new Vec2(0, 0);
-	_posX = 0;
-	_posY = 0;
 }
 
 

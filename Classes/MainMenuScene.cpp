@@ -35,6 +35,8 @@ bool MainMenuScene::init()
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	Size winSize = Director::getInstance()->getWinSize();
 
+
+
 	//Loading spritesheet menu_scene
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("menu_scene.plist", "menu_scene.png");
 
@@ -59,8 +61,13 @@ bool MainMenuScene::init()
 	
 	credits_item = MenuItemSprite::create(credits_normal, credits_pressed, CC_CALLBACK_1(MainMenuScene::credits, this));
 	credits_item->setScale(0.8);
-	credits_item->setPosition(visibleSize.width / 2+ origin.x, visibleSize.height / 2 + origin.y + 50);
+	credits_item->setPosition(visibleSize.width / 2+ origin.x, visibleSize.height / 2 + origin.y + 0);
 
+
+
+	//Audio
+	auto Audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	Audio->playBackgroundMusic(BACKGROUND_SOUND_INTRO, true);
 
 	//Menu
 	auto menu = Menu::create(startgame_item, credits_item, NULL);
@@ -87,8 +94,12 @@ void MainMenuScene::startgame_callback()
 {
 	//StartGame button - chnage scene
 	//auto scene = TransitionMoveInR::create(0.2f, GameLayer::createScene());
+	auto Audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	Audio->stopBackgroundMusic();
+	Audio->playBackgroundMusic(BACKGROUND_SOUND_GAME, true);
+
 	auto scene = TransitionZoomFlipX::create(0.2f, HelloWorld::createScene());
-	
+	//auto scene = HelloWorld::createScene();
 	
 	Director::getInstance()->replaceScene(scene);
 	
@@ -106,6 +117,8 @@ void MainMenuScene::credits(cocos2d::Ref * sender)
 
 void MainMenuScene::credits_callback()
 {
+
+
 }
 
 /*

@@ -1,8 +1,11 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "GameConfig.h"
-#include "GameLayer.h"
+#include "GameOverScene.h"
 #include "Meteor.h"
+#include "physics3d\CCPhysics3D.h"
+
+
 
 
 //#include "CCParallaxScrollNode.h"
@@ -12,23 +15,32 @@
 
 USING_NS_CC;
 using namespace std;
+using namespace ui;
 
 Scene* HelloWorld::createScene()
 {
     // 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
+	
     
     // 'layer' is an autorelease object
     auto layer = HelloWorld::create();
 
 	layer->sceneWorld = scene->getPhysicsWorld();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	
+
 	layer->setName("HelloWorld");	
-
+	layer->setTag(100);
+	
     // add layer as a child to scene
-	scene->addChild(layer, 2, layer->getName());
+	scene->addChild(layer);
 
+	//Warnin Layer
+	auto warningLayer = LayerColor::create(Color4B(255, 0, 0, 60));
+	warningLayer->setOpacity(0);
+	warningLayer->setName("WarningLayer");
+	scene->addChild(warningLayer, 7);
 
     // return the scene
     return scene;
@@ -44,6 +56,9 @@ bool HelloWorld::init()
         return false;
     }
     
+
+	initStats();
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 	Size winSize = Director::getInstance()->getWinSize();
@@ -66,12 +81,73 @@ bool HelloWorld::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 12);
 
-	auto sb = GameLayer::create();
-	//sb->setTag(123);
-	sb->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height/2 + origin.y));
-	//sb->setGlobalZOrder(10);
-	addChild(sb, 0);
 
+	//Perload musci
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SOUND_EFFECT_LASERSHOOT);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SOUND_EFFECT_EXPLOSION1);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(SOUND_EFFECT_EXPLOSION2);
+
+	
+	//Game layer (logic)
+	sb = GameLayer::create();
+	sb->setName("GameLayer");
+	sb->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height/2 + origin.y));
+	addChild(sb, -1);
+
+
+
+	_healthBar = LoadingBar::create();
+	_healthBar->setName("HealthBar");
+	_healthBar->loadTexture("HealthBar.png");
+	_healthBar->setPercent(100);
+	_healthBar->setRotation(90);
+	_healthBar->setFlippedY(true);
+	_healthBar->setScale(0.2);
+	_healthBar->setPosition(Point(visibleSize.width / 2 - 250, visibleSize.height / 2 - 350));
+	_healthBar->setDirection(LoadingBar::Direction::RIGHT);
+	this->addChild(_healthBar, -1);
+
+
+	
+
+
+
+	_labelScore = Label::createWithTTF("Score: 0", "fonts/PLANK___.ttf", 32);
+	_labelScore->setPosition(Point(visibleSize.width / 2, visibleSize.height - _labelScore->getContentSize().height));
+	this->addChild(_labelScore);
+
+
+
+	/*
+	Sprite *progresBorder = Sprite::create("progress-bar-type.png");
+	//progresBorder->setAnchorPoint(Vec2(0, 0));
+	progresBorder->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
+	progresBorder->setRotation(90);
+	progresBorder->setScaleY(2);
+	this->addChild(progresBorder);
+
+	Sprite *progresSprite = Sprite::create("HelloWorld.png");
+	//progresSprite->setPosition(Point(visibleSize.width / 2 + 200, visibleSize.height / 2));
+
+	
+	ProgressTimer *progresTimerHP = ProgressTimer::create(progresSprite); 
+	progresTimerHP->setBarChangeRate(Vec2(1, 1));
+	progresTimerHP->setAnchorPoint(Vec2(0.5, 1));
+	progresTimerHP->setType(ProgressTimer::Type::BAR);
+	progresTimerHP->setPosition(Point(visibleSize.width / 2 + 100, visibleSize.height / 2));
+	progresTimerHP->setPercentage(50);
+	//progresTimerHP->getSprite()->setPosition(Vec2(0, 0));
+	progresTimerHP->getSprite()->setScale(0.0001);
+
+	progresSprite->setScale(1);
+
+	this->addChild(progresTimerHP);
+	*/
+
+
+	
+
+	
 
 
 	//Physic world test
@@ -129,7 +205,8 @@ bool HelloWorld::init()
 	auto Sprite1 = Sprite::createWithSpriteFrameName("explosionsA_1.png");
 
 	spritebatch->addChild(Sprite1);
-	addChild(spritebatch, -1, kSpriteManager);
+	addChild(spritebatch, -1);
+
 	spritebatch->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
 	Vector<SpriteFrame*> animFrames(10);
@@ -149,39 +226,16 @@ bool HelloWorld::init()
 	
 
 	//Repeat Texture 1.
-	
-	_spr = Sprite::create("background4.png");
+	_spr = Sprite::create("background5.png");
 	addChild(_spr, -1);
 	Texture2D::TexParams texRepeat = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_REPEAT };
 	_spr->getTexture()->setTexParameters(texRepeat);
-	//setRotation3D(Vec3(-30.0, 0.0f, 0.0f));
-	_spr->setRotation3D(Vec3(-30.0, 0.0f, 0.0f));
+	_spr->setRotation3D(Vec3(-10.0, 0.0f, 0.0f));
 	_spr->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y + 175));
-	_spr->setScale(1.4);
+	_spr->setScale(1.0);
 	_spr->setGlobalZOrder(-1);
 
-
-	//Repeat Texture 2.
-	/*
-	Texture2D::TexParams texParams;
-
-	texParams.magFilter = GL_LINEAR;
-
-	texParams.minFilter = GL_LINEAR;
-
-	texParams.wrapS = GL_REPEAT;
-
-	texParams.wrapT = GL_REPEAT;
-
-	Sprite* bgwrap = Sprite::create("groundLevel.jpg");
-
-	bgwrap->getTexture()->setTexParameters(texParams);
 	
-	bgwrap->setPosition(visibleSize.width * 0.5f + origin.x, visibleSize.height * 0.5f + origin.y);
-	
-	addChild(bgwrap, -5);
-	*/
-
 	
 	/*
 	backgroundNode = ParallaxNode::create();
@@ -257,6 +311,14 @@ bool HelloWorld::init()
     return true;
 }
 
+void HelloWorld::initStats()
+{
+	_score = 0;
+	_scaleDificulty = 0;
+	_scaleSpeedBG = 0;
+
+}
+
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
@@ -284,8 +346,17 @@ void HelloWorld::update(float dt)
 	*/
 
 	xScroll += xSpeed*dt;
-	_spr->setTextureRect(Rect(0, ((int)xScroll) % 2048, 512, 1200));
+	_spr->setTextureRect(Rect(0, -((int)xScroll) % 2048, 1024, 1200));
 
+	_healthBar->setPosition(sb->_player->getSpr3D()->getPosition() + Vec2(260, 480));
+	
+	if (!sb->_player->getAlive())
+	{
+		this->removeAllChildrenWithCleanup(true);
+
+		auto scene = GameOverScene::createScene(_score);
+		Director::getInstance()->replaceScene(scene);
+	}
 
 }
 
@@ -295,6 +366,63 @@ HelloWorld::HelloWorld()
 
 HelloWorld::~HelloWorld()
 {
+}
+
+void HelloWorld::incrementScore(float dt)
+{
+	//this->_score++;
+	this->_score += dt;
+	auto scoreString = __String::createWithFormat("Score: %i", _score)->getCString();
+	_labelScore->setColor(Color3B::ORANGE);
+	_labelScore->setString(scoreString);
+
+	_scaleDificulty += dt;
+	if (checkScaleDificulty())
+	{
+		sb->scaleDifficulty();
+	}
+
+	_scaleSpeedBG += dt;
+	if (checkScaleSpeedBG())
+	{
+		sb->scaleBGspeed();
+	}
+
+
+
+}
+
+void HelloWorld::setHealthBarPosition(Vec2 vec)
+{
+	_healthBar->setPosition(vec);
+}
+
+bool HelloWorld::checkScaleDificulty()
+{
+
+	if(_scaleDificulty >= 500.0f)
+	{ 
+		_scaleDificulty = 0;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool HelloWorld::checkScaleSpeedBG()
+{
+	if (_scaleSpeedBG >= 50)
+	{
+		_scaleSpeedBG = 0;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 

@@ -10,10 +10,10 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2016
 		Month: 09
-		Day: 08
-		Hour: 23
-		Minute: 11
-		Second: 26
+		Day: 10
+		Hour: 13
+		Minute: 02
+		Second: 48
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2016-09-08 23:11:26:000"
+CreationTime: "2016-09-10 13:02:48:000"
 Creator: "Blender version 2.77 (sub 0)"
 
 ; Object definitions
@@ -1077,12 +1077,12 @@ Objects:  {
 			}
 		}
 	}
-	Material: "Material::Material__Ship_3-Diffuse_tga", "" {
+	Material: "Material::None__Ship_3-Diffuse_tga", "" {
 		Version: 102
-		ShadingModel: "lambert"
+		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties60:  {
-			Property: "ShadingModel", "KString", "", "Lambert"
+			Property: "ShadingModel", "KString", "", "Phong"
 			Property: "MultiLayer", "bool", "",0
 			Property: "EmissiveColor", "ColorRGB", "",0.8000,0.8000,0.8000
 			Property: "EmissiveFactor", "double", "",0.0000
@@ -1204,7 +1204,7 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
-	Material: "Material::Material__Ship_3-Diffuse_tga", "" {
+	Material: "Material::None__Ship_3-Diffuse_tga", "" {
 	}
 	Texture: "Texture::Ship_3-Diffuse_tga", "TextureVideoClip" {
 	}
@@ -1217,7 +1217,7 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::Ship", "Model::Scene"
-	Connect: "OO", "Material::Material__Ship_3-Diffuse_tga", "Model::Ship"
+	Connect: "OO", "Material::None__Ship_3-Diffuse_tga", "Model::Ship"
 	Connect: "OO", "Texture::Ship_3-Diffuse_tga", "Model::Ship"
 	Connect: "OO", "Video::Ship_3-Diffuse_tga", "Texture::Ship_3-Diffuse_tga"
 }
